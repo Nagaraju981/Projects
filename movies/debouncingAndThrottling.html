@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="searchBar" placeholder="search..." />
+  </body>
+</html>
+<script>
+  function fetchResult(query) {
+    console.log(`fetching results for : ${query}`);
+  }
+
+  document
+    .querySelector("#searchBar")
+    .addEventListener("input", function (element) {
+      debounceThrottledSearch(element.target.value);
+    });
+
+  const debounceThrottledSearch = debounce(throttle(fetchResult, 2000), 3000);
+
+  //debouncing
+  function debounce(fun, delay) {
+    let timerId;
+
+    return function (arg) {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => fun(arg), delay);
+    };
+  }
+
+  //throttling
+
+  function throttle(fun, interval) {
+    let prevTime = 0;
+
+    return function (arg) {
+      const now = new Date().getTime();
+
+      if (now - prevTime > interval) {
+        prevTime = now;
+
+        return fun(arg);
+      }
+    };
+  }
+</script>
