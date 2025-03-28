@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div id="links">
+      <div><a href="./index.html">Home</a></div>
+      <div><a href="./application.html">Applied Jobs</a></div>
+      <div><a href="./bookmark.html">Bookmarks</a></div>
+    </div>
+
+    <!-- form filling -->
+    <form id="form">
+      <h2>Enter your Application Details</h2>
+      <input type="text" placeholder="Enter Name" id="name" />
+      <input type="email" placeholder="Enter email" id="email" />
+
+      <select id="role">
+        <option value="fsd">FSD</option>
+        <option value="backend">Backend</option>
+        <option value="frontend">FrontEnd</option>
+      </select>
+      <input
+        type="number"
+        id="salary"
+        placeholder="Enter your expected salary in lakhs per annum"
+      />
+
+      <input type="submit" id="submit" value="submit" />
+    </form>
+  </body>
+</html>
+
+<script>
+  document.querySelector("#form").addEventListener("submit", jobSubmit);
+
+  let jobArr;
+  //JSON---> javascript object notation
+  // {
+  //   "name":"flm",
+  //   "age":4
+  // }
+  if (localStorage.getItem("jobList") !== null) {
+    jobArr = JSON.parse(localStorage.getItem("jobList"));
+    // JSON.parse-it is used to convert json data to object data.
+    //localStorage.getItem("jobList")--> to access data from local storage
+  } else {
+    jobArr = [];
+  }
+
+  function jobSubmit() {
+    event.preventDefault();
+
+    let jobObj = {
+      personName: document.querySelector("#name").value,
+      personEmail: form.email.value,
+      personRole: form.role.value,
+      personSalary: form.salary.value,
+    };
+
+    jobArr.push(jobObj);
+
+    localStorage.setItem("jobList", JSON.stringify(jobArr));
+    //when you want to store the data in localstorage you should alway send the data in json format.
+    //localStorage.setItem("jobList",JSON.stringify(jobArr))-->it is used to store data.
+    // JSON.stringify(jobArr)---> it converts object data into json data.
+
+    window.location.href = "application.html";
+    // it is used to direct to the specific location.
+  }
+</script>
